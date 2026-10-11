@@ -8,41 +8,110 @@
     <link rel="stylesheet" href="styles.css">
 
     <script>
+        const CASE_TYPES = [
+            { value: 'green-card', key: 'caseGreenCard' },
+            { value: 'spousal-visa', key: 'caseSpousalVisa' },
+            { value: 'deportation', key: 'caseDeportation' },
+            { value: 'daca', key: 'caseDaca' },
+            { value: 'tax-shelter', key: 'caseTaxShelter' },
+            { value: 'other', key: 'caseOther' }
+        ];
+
         const translations = {
             en: {
-                formTitle: "📋 Client Intake Form",
-                name: "Full Name",
-                email: "Email",
-                phone: "Phone Number",
-                caseType: "Case Type",
-                details: "Describe Your Situation",
-                submit: "Submit Consultation Request",
-                note: "We will contact you within 24 hours."
+                pageTitle: 'Client Intake - Justin Landess Immigration Law',
+                pageTitleTax: 'Tax Relief Inquiry - Justin Landess',
+                formTitle: '📋 Client Intake Form',
+                formTitleTax: '💼 Instant Tax Shelter & Tax Forgiveness Inquiry',
+                name: 'Full Name',
+                email: 'Email',
+                phone: 'Phone Number',
+                caseType: 'Case Type',
+                details: 'Describe Your Situation',
+                detailsTax: 'Tell us about your IRS or tax situation (optional)',
+                submit: 'Submit Consultation Request',
+                submitTax: 'Request Tax Relief Information',
+                note: 'We will contact you within 24 hours.',
+                backHome: '← Back to home',
+                backTaxInfo: '← Tax relief information',
+                caseGreenCard: 'Green Card',
+                caseSpousalVisa: 'Spousal Visa',
+                caseDeportation: 'Deportation Defense',
+                caseDaca: 'DACA',
+                caseTaxShelter: 'Instant Tax Shelter / Tax Forgiveness (IRS)',
+                caseOther: 'Other',
+                subjectDefault: 'New Immigration Intake Submission',
+                subjectTax: 'Tax Shelter / Forgiveness Inquiry'
             },
             es: {
-                formTitle: "📋 Formulario de Cliente",
-                name: "Nombre Completo",
-                email: "Correo Electrónico",
-                phone: "Número de Teléfono",
-                caseType: "Tipo de Caso",
-                details: "Describe Tu Situación",
-                submit: "Enviar Solicitud",
-                note: "Nos pondremos en contacto con usted dentro de 24 horas."
+                pageTitle: 'Admisión de Cliente - Justin Landess',
+                pageTitleTax: 'Consulta de Alivio Fiscal - Justin Landess',
+                formTitle: '📋 Formulario de Cliente',
+                formTitleTax: '💼 Refugio Fiscal Instantáneo y Perdón de Impuestos',
+                name: 'Nombre Completo',
+                email: 'Correo Electrónico',
+                phone: 'Número de Teléfono',
+                caseType: 'Tipo de Caso',
+                details: 'Describe Tu Situación',
+                detailsTax: 'Cuéntenos sobre su situación con el IRS o impuestos (opcional)',
+                submit: 'Enviar Solicitud',
+                submitTax: 'Solicitar Información de Alivio Fiscal',
+                note: 'Nos pondremos en contacto con usted dentro de 24 horas.',
+                backHome: '← Volver al inicio',
+                backTaxInfo: '← Información de alivio fiscal',
+                caseGreenCard: 'Tarjeta Verde',
+                caseSpousalVisa: 'Visa Conyugal',
+                caseDeportation: 'Defensa de Deportación',
+                caseDaca: 'DACA',
+                caseTaxShelter: 'Refugio Fiscal Instantáneo / Perdón de Impuestos (IRS)',
+                caseOther: 'Otro',
+                subjectDefault: 'Nueva Solicitud de Inmigración',
+                subjectTax: 'Consulta de Refugio Fiscal / Perdón de Impuestos'
             }
         };
+
+        function getTopic() {
+            return new URLSearchParams(window.location.search).get('topic');
+        }
+
+        function isTaxTopic() {
+            return getTopic() === 'tax-shelter';
+        }
+
+        function populateCaseTypes(lang, selectedValue) {
+            const t = translations[lang];
+            const select = document.getElementById('caseType');
+            select.innerHTML = CASE_TYPES.map(({ value, key }) => {
+                const selected = value === selectedValue ? ' selected' : '';
+                return `<option value="${value}"${selected}>${t[key]}</option>`;
+            }).join('');
+        }
 
         function loadLanguage() {
             const lang = localStorage.getItem('preferredLanguage') || 'en';
             const t = translations[lang];
+            const tax = isTaxTopic();
 
-            document.getElementById('formTitle').textContent = t.formTitle;
+            document.documentElement.lang = lang;
+            document.title = tax ? t.pageTitleTax : t.pageTitle;
+            document.getElementById('formTitle').textContent = tax ? t.formTitleTax : t.formTitle;
             document.getElementById('nameLabel').textContent = t.name;
             document.getElementById('emailLabel').textContent = t.email;
             document.getElementById('phoneLabel').textContent = t.phone;
             document.getElementById('caseTypeLabel').textContent = t.caseType;
-            document.getElementById('detailsLabel').textContent = t.details;
-            document.getElementById('submitBtn').textContent = t.submit;
+            document.getElementById('detailsLabel').textContent = tax ? t.detailsTax : t.details;
+            document.getElementById('submitBtn').textContent = tax ? t.submitTax : t.submit;
             document.getElementById('formNote').textContent = t.note;
+            document.getElementById('backLink').textContent = tax ? t.backTaxInfo : t.backHome;
+            document.getElementById('backLink').href = tax ? 'tax-shelter.html' : 'index.html';
+
+            const defaultCase = tax ? 'tax-shelter' : 'green-card';
+            populateCaseTypes(lang, defaultCase);
+
+            document.getElementById('formSubject').value = tax ? t.subjectTax : t.subjectDefault;
+            if (tax) {
+                document.getElementById('inquiryTopic').value = 'tax-shelter';
+            }
         }
 
         window.addEventListener('DOMContentLoaded', loadLanguage);
@@ -51,12 +120,19 @@
 <body>
 
     <div id="lang-selector">
-        <button onclick="localStorage.setItem('preferredLanguage','en'); location.reload()">English</button>
-        <button onclick="localStorage.setItem('preferredLanguage','es'); location.reload()">Español</button>
+        <button type="button" onclick="localStorage.setItem('preferredLanguage','en'); location.reload()">English</button>
+        <button type="button" onclick="localStorage.setItem('preferredLanguage','es'); location.reload()">Español</button>
     </div>
 
     <div class="container">
 
+        <header class="site-header">
+            <a href="index.html" aria-label="Home">
+                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
+            </a>
+        </header>
+
+        <p class="form-back"><a id="backLink" href="index.html"></a></p>
         <h1 id="formTitle"></h1>
 
         <div class="card">
@@ -79,13 +155,7 @@
 
                 <div class="form-group">
                     <label id="caseTypeLabel" for="caseType"></label>
-                    <select id="caseType" name="caseType">
-                        <option>Green Card</option>
-                        <option>Spousal Visa</option>
-                        <option>Deportation Defense</option>
-                        <option>DACA</option>
-                        <option>Other</option>
-                    </select>
+                    <select id="caseType" name="caseType"></select>
                 </div>
 
                 <div class="form-group">
@@ -93,7 +163,8 @@
                     <textarea id="details" name="details"></textarea>
                 </div>
 
-                <input type="hidden" name="_subject" value="New Immigration Intake Submission">
+                <input type="hidden" id="formSubject" name="_subject" value="New Immigration Intake Submission">
+                <input type="hidden" id="inquiryTopic" name="inquiry_topic" value="">
 
                 <button type="submit" class="btn" id="submitBtn"></button>
 

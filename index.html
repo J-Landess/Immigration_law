@@ -4,27 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justin Landess Immigration Law - Green Cards & Spousal Sponsorship</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #0b1020; color: #fff; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        #lang-selector { position: fixed; top: 20px; right: 20px; z-index: 1000; }
-        #lang-selector button { padding: 10px 15px; margin: 0 5px; background: #d4af37; color: black; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        #lang-selector button:hover { background: #e8c547; }
-        #lang-selector button.active { background: #b8860b; }
-        h1 { font-size: 2.8rem; color: #d4af37; }
-        h2 { color: #d4af37; margin-top: 30px; }
-        h3 { color: #d4af37; }
-        .btn { display: inline-block; padding: 15px 35px; background: #d4af37; color: black; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 15px 10px 15px 0; }
-        .btn:hover { background: #e8c547; transform: translateY(-2px); }
-        .card { background: #1e293b; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .card ul { margin-left: 20px; margin-top: 10px; }
-        .card li { margin: 8px 0; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
-        .stat-box { background: #d4af37; color: black; padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; }
-        footer { margin-top: 40px; padding: 20px; border-top: 1px solid #d4af37; text-align: center; font-size: 12px; opacity: 0.7; }
-        @media (max-width: 768px) { .stats { grid-template-columns: 1fr; } h1 { font-size: 2rem; } #lang-selector { position: relative; top: 0; right: 0; margin-bottom: 20px; } }
-    </style>
+    <link rel="stylesheet" href="theme.css">
 </head>
 <body>
     <div id="lang-selector">
@@ -33,6 +13,12 @@
     </div>
 
     <div class="container">
+        <header class="site-header">
+            <a href="index.html" aria-label="Home">
+                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
+            </a>
+        </header>
+        <nav class="site-nav" id="siteNav"></nav>
         <h1 id="mainHeading"></h1>
         <h2 id="subheading"></h2>
         <p id="intro1"></p>
@@ -40,6 +26,18 @@
         
         <a class="btn" id="consultationBtn" href="intake.html"></a>
         <a class="btn" id="contactBtn" href="intake.html"></a>
+
+        <div class="card card-highlight">
+            <h2 id="taxIrsHeading" style="margin-top: 0;"></h2>
+            <p id="taxIrsText"></p>
+            <a class="btn btn-secondary" id="taxIrsBtn" href="tax-shelter.html"></a>
+        </div>
+
+        <div class="card">
+            <h3 id="exploreTitle"></h3>
+            <a class="btn btn-secondary" id="exploreAbout" href="about-us.html"></a>
+            <a class="btn btn-secondary" id="exploreWhat" href="what-we-do.html"></a>
+        </div>
 
         <div class="card">
             <h3 id="whyChooseTitle"></h3>
@@ -88,10 +86,10 @@
             <p id="testimonial3"></p>
         </div>
 
-        <div style="background: #d4af37; color: black; padding: 30px; border-radius: 10px; text-align: center; margin: 30px 0;">
-            <h2 id="readyHeading" style="color: black;"></h2>
-            <p id="readyText" style="color: black; font-size: 18px;"></p>
-            <a class="btn" id="getStartedBtn" href="intake.html" style="background: #1e293b; color: #d4af37;"></a>
+        <div class="cta-band">
+            <h2 id="readyHeading"></h2>
+            <p id="readyText" style="font-size: 18px;"></p>
+            <a class="btn" id="getStartedBtn" href="intake.html"></a>
         </div>
 
         <footer id="footer"></footer>
@@ -107,6 +105,16 @@
                 intro2: 'Fast, reliable immigration solutions. Transparent pricing. Proven results.',
                 consultationBtn: '📋 GET FREE CONSULTATION',
                 contactBtn: '📞 CONTACT US NOW',
+                taxIrsHeading: 'Worried about the IRS?',
+                taxIrsText: 'Ask about our Instant Tax Shelter and tax forgiveness information. Confidential review of your options—no obligation.',
+                taxIrsBtn: '💼 ASK ABOUT TAX RELIEF',
+                navHome: 'Home',
+                navAbout: 'About Us',
+                navWhatWeDo: 'What We Do',
+                navTax: 'Tax Relief',
+                exploreTitle: 'Learn more about our firm',
+                exploreAbout: 'About us & photos',
+                exploreWhat: 'What we do',
                 whyChoose: 'Why Choose Justin Landess Immigration Law?',
                 whyChooseItems: [
                     '✓ 40+ Years of Legal Experience in Nevada',
@@ -157,6 +165,16 @@
                 intro2: 'Soluciones de inmigración rápidas y confiables. Precios transparentes. Resultados comprobados.',
                 consultationBtn: '📋 OBTÉN CONSULTA GRATUITA',
                 contactBtn: '📞 CONTÁCTENOS AHORA',
+                taxIrsHeading: '¿Preocupado por el IRS?',
+                taxIrsText: 'Pregunte sobre nuestro Refugio Fiscal Instantáneo e información sobre perdón de impuestos. Revisión confidencial de sus opciones—sin obligación.',
+                taxIrsBtn: '💼 PREGUNTE SOBRE ALIVIO FISCAL',
+                navHome: 'Inicio',
+                navAbout: 'Quiénes Somos',
+                navWhatWeDo: 'Qué Hacemos',
+                navTax: 'Alivio Fiscal',
+                exploreTitle: 'Conozca más sobre nuestra firma',
+                exploreAbout: 'Quiénes somos y fotos',
+                exploreWhat: 'Qué hacemos',
                 whyChoose: '¿Por Qué Elegir la Ley de Inmigración Justin Landess?',
                 whyChooseItems: [
                     '✓ Más de 40 Años de Experiencia Legal en Nevada',
@@ -213,17 +231,39 @@
             document.querySelector(`#lang-selector button[data-lang="${language}"]`).classList.add('active');
         }
 
+        function renderNav(t) {
+            const links = [
+                { href: 'index.html', key: 'navHome', active: true },
+                { href: 'about-us.html', key: 'navAbout', active: false },
+                { href: 'what-we-do.html', key: 'navWhatWeDo', active: false },
+                { href: 'tax-shelter.html', key: 'navTax', active: false }
+            ];
+            document.getElementById('siteNav').innerHTML = links.map(link => {
+                if (link.active) {
+                    return `<span class="active">${t[link.key]}</span>`;
+                }
+                return `<a href="${link.href}">${t[link.key]}</a>`;
+            }).join('');
+        }
+
         function translatePage(language) {
             const t = translations[language];
             
             document.documentElement.lang = language;
             document.title = t.pageTitle;
+            renderNav(t);
             document.getElementById('mainHeading').textContent = t.mainHeading;
             document.getElementById('subheading').textContent = t.subheading;
             document.getElementById('intro1').textContent = t.intro1;
             document.getElementById('intro2').textContent = t.intro2;
             document.getElementById('consultationBtn').textContent = t.consultationBtn;
             document.getElementById('contactBtn').textContent = t.contactBtn;
+            document.getElementById('taxIrsHeading').textContent = t.taxIrsHeading;
+            document.getElementById('taxIrsText').textContent = t.taxIrsText;
+            document.getElementById('taxIrsBtn').textContent = t.taxIrsBtn;
+            document.getElementById('exploreTitle').textContent = t.exploreTitle;
+            document.getElementById('exploreAbout').textContent = t.exploreAbout;
+            document.getElementById('exploreWhat').textContent = t.exploreWhat;
             document.getElementById('whyChooseTitle').textContent = t.whyChoose;
             document.getElementById('whyChooseList').innerHTML = t.whyChooseItems.map(item => `<li>${item}</li>`).join('');
             document.getElementById('trackRecordTitle').textContent = t.trackRecord;

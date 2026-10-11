@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What We Do - Justin Landess Immigration Law</title>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <div id="lang-selector">
+        <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
+        <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
+    </div>
+
+    <div class="container">
+        <header class="site-header">
+            <a href="index.html" aria-label="Home">
+                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
+            </a>
+        </header>
+        <nav class="site-nav" id="siteNav"></nav>
+
+        <h1 id="pageHeading"></h1>
+        <p id="lead"></p>
+
+        <div class="card">
+            <h2 id="immigrationTitle"></h2>
+            <ul id="immigrationList"></ul>
+        </div>
+
+        <div class="card">
+            <h2 id="taxTitle"></h2>
+            <p id="taxText"></p>
+            <a class="btn btn-secondary" id="taxLink" href="tax-shelter.html"></a>
+        </div>
+
+        <div class="card">
+            <h2 id="processTitle"></h2>
+            <ol class="steps" id="processList"></ol>
+        </div>
+
+        <a class="btn" id="consultBtn" href="intake.html"></a>
+        <a class="btn btn-secondary" id="aboutBtn" href="about-us.html"></a>
+
+        <footer id="footer"></footer>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                pageTitle: 'What We Do - Justin Landess Immigration Law',
+                navHome: 'Home',
+                navAbout: 'About Us',
+                navWhatWeDo: 'What We Do',
+                navTax: 'Tax Relief',
+                pageHeading: 'What We Do',
+                lead: 'We help Nevada residents and families with immigration matters—from green cards and family visas to deportation defense—plus confidential guidance on IRS tax relief options.',
+                immigrationTitle: 'Immigration services',
+                immigrationItems: [
+                    'Green card applications (employment and family-based)',
+                    'Spousal sponsorship, K-1 fiancé(e) visas, and adjustment of status',
+                    'Deportation defense and removal proceedings',
+                    'DACA initial applications and renewals',
+                    'Temporary Protected Status (TPS)',
+                    'Naturalization and citizenship',
+                    'Family reunification planning',
+                    'Expedited and premium processing support where available'
+                ],
+                taxTitle: 'Tax relief & IRS issues',
+                taxText: 'Worried about the IRS? We provide information on Instant Tax Shelter strategies and tax forgiveness programs so you can understand relief options alongside your immigration planning.',
+                taxLink: 'Learn about tax relief',
+                processTitle: 'How we work with you',
+                processItems: [
+                    'Free consultation — you tell us your story and goals.',
+                    'Clear plan — we outline steps, timelines, and fees upfront.',
+                    'Document prep — we help gather and organize what USCIS or the court needs.',
+                    'Filing & follow-through — we submit, respond to requests, and keep you updated.',
+                    'Resolution — we stay with you through interviews, hearings, or final decisions.'
+                ],
+                consultBtn: '📋 START YOUR CONSULTATION',
+                aboutBtn: 'About our firm',
+                footer: '© 2026 Justin Landess Immigration Law Group. All rights reserved.',
+                footerDisclaimer: 'Attorney Advertising. Results not guaranteed. Previous results do not guarantee future outcomes.'
+            },
+            es: {
+                pageTitle: 'Qué Hacemos - Justin Landess',
+                navHome: 'Inicio',
+                navAbout: 'Quiénes Somos',
+                navWhatWeDo: 'Qué Hacemos',
+                navTax: 'Alivio Fiscal',
+                pageHeading: 'Qué Hacemos',
+                lead: 'Ayudamos a residentes y familias de Nevada con asuntos de inmigración—desde tarjetas verdes y visas familiares hasta defensa de deportación—más orientación confidencial sobre opciones de alivio fiscal ante el IRS.',
+                immigrationTitle: 'Servicios de inmigración',
+                immigrationItems: [
+                    'Solicitudes de tarjeta verde (por empleo y familia)',
+                    'Patrocinio conyugal, visas K-1 y ajuste de estatus',
+                    'Defensa de deportación y procedimientos de remoción',
+                    'Solicitudes iniciales y renovaciones de DACA',
+                    'Estado de Protección Temporal (TPS)',
+                    'Naturalización y ciudadanía',
+                    'Planificación de reunificación familiar',
+                    'Apoyo en procesamiento expedito y premium cuando aplique'
+                ],
+                taxTitle: 'Alivio fiscal y el IRS',
+                taxText: '¿Preocupado por el IRS? Ofrecemos información sobre estrategias de Refugio Fiscal Instantáneo y programas de perdón de impuestos para que entienda opciones de alivio junto con su plan migratorio.',
+                taxLink: 'Información de alivio fiscal',
+                processTitle: 'Cómo trabajamos con usted',
+                processItems: [
+                    'Consulta gratuita — usted nos cuenta su situación y metas.',
+                    'Plan claro — explicamos pasos, plazos y honorarios desde el inicio.',
+                    'Preparación de documentos — ayudamos a reunir lo que USCIS o el tribunal requiere.',
+                    'Presentación y seguimiento — enviamos, respondemos solicitudes y le mantenemos informado.',
+                    'Resolución — le acompañamos en entrevistas, audiencias o decisiones finales.'
+                ],
+                consultBtn: '📋 INICIAR CONSULTA',
+                aboutBtn: 'Sobre nuestra firma',
+                footer: '© 2026 Grupo de Ley de Inmigración Justin Landess. Todos los derechos reservados.',
+                footerDisclaimer: 'Publicidad de Abogado. Resultados no garantizados. Los resultados previos no garantizan resultados futuros.'
+            }
+        };
+
+        function renderNav(t, active) {
+            const links = [
+                { href: 'index.html', key: 'navHome', id: 'home' },
+                { href: 'about-us.html', key: 'navAbout', id: 'about' },
+                { href: 'what-we-do.html', key: 'navWhatWeDo', id: 'what' },
+                { href: 'tax-shelter.html', key: 'navTax', id: 'tax' }
+            ];
+            document.getElementById('siteNav').innerHTML = links.map(link => {
+                const cls = link.id === active ? ' class="active"' : '';
+                return `<a href="${link.href}"${cls}>${t[link.key]}</a>`;
+            }).join('');
+        }
+
+        function setLanguage(language) {
+            localStorage.setItem('preferredLanguage', language);
+            const t = translations[language];
+            document.documentElement.lang = language;
+            document.title = t.pageTitle;
+            renderNav(t, 'what');
+            document.getElementById('pageHeading').textContent = t.pageHeading;
+            document.getElementById('lead').textContent = t.lead;
+            document.getElementById('immigrationTitle').textContent = t.immigrationTitle;
+            document.getElementById('immigrationList').innerHTML = t.immigrationItems.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('taxTitle').textContent = t.taxTitle;
+            document.getElementById('taxText').textContent = t.taxText;
+            document.getElementById('taxLink').textContent = t.taxLink;
+            document.getElementById('processTitle').textContent = t.processTitle;
+            document.getElementById('processList').innerHTML = t.processItems.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('consultBtn').textContent = t.consultBtn;
+            document.getElementById('aboutBtn').textContent = t.aboutBtn;
+            document.getElementById('footer').innerHTML = `<p>${t.footer}</p><p>${t.footerDisclaimer}</p>`;
+            document.querySelectorAll('#lang-selector button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === language);
+            });
+        }
+
+        function initLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const lang = localStorage.getItem('preferredLanguage') || (userLang.startsWith('es') ? 'es' : 'en');
+            setLanguage(lang);
+        }
+
+        window.addEventListener('DOMContentLoaded', initLanguage);
+    </script>
+</body>
+</html>
