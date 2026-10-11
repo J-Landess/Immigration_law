@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure an Attorney Now — Retainer &amp; Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/site-config.js"></script>
+    <script src="js/site-nav.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="index.html"><img class="logo-full" src="images/logo-full.png" alt="Tax and Immigration Lawyer"></a>
+        </header>
+        <nav class="site-nav" id="siteNav"></nav>
+
+        <h1>Secure an attorney now</h1>
+        <p class="section-lead">Confidential retention request. Review pricing and disclosures before payment. <strong>Payment does not by itself create an attorney–client relationship.</strong></p>
+
+        <div id="configNotice" class="disclosure-box"></div>
+
+        <form id="retainForm" class="card">
+            <h2>Step 1 — Service</h2>
+            <div class="form-group">
+                <label for="practiceArea">Practice area</label>
+                <select id="practiceArea" name="practiceArea" required>
+                    <option value="immigration">Immigration</option>
+                    <option value="tax">Tax</option>
+                    <option value="both">Immigration &amp; tax</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="serviceType">Type of assistance</label>
+                <select id="serviceType" name="serviceType" required>
+                    <option value="consultation">Initial consultation / case assessment</option>
+                    <option value="document-review">Document review</option>
+                    <option value="representation">Ongoing representation (deposit)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Brief description (optional, avoid SSN/A-numbers here)</label>
+                <textarea id="notes" name="notes" maxlength="500" placeholder="General topic only—detailed facts can be shared after engagement."></textarea>
+            </div>
+
+            <h2>Step 2 — Contact (for retention only)</h2>
+            <div class="form-group">
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" name="contactName" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" name="contactEmail" required autocomplete="email">
+            </div>
+
+            <div class="disclosure-box" id="pricingDisclosure"></div>
+
+            <h2>Step 3 — Payment method</h2>
+            <p class="muted">Amount charged is the <strong>initial retainer deposit</strong> configured by the firm—not an automatic one-hour charge.</p>
+            <div class="form-group">
+                <label><input type="radio" name="payMethod" value="stripe" checked> Pay with card (Stripe Checkout)</label><br>
+                <label><input type="radio" name="payMethod" value="zelle"> Zelle (manual — pending verification)</label><br>
+                <label><input type="radio" name="payMethod" value="chime"> Chime (manual — pending verification)</label>
+            </div>
+            <div class="form-group" id="payerNoteWrap" hidden>
+                <label for="payerNote">Payment reference / last 4 digits (optional)</label>
+                <input type="text" id="payerNote" maxlength="200" placeholder="How you identified the payment">
+            </div>
+            <button type="submit" class="btn" id="submitBtn">Continue</button>
+            <p class="form-note" id="formStatus"></p>
+        </form>
+
+        <div id="manualInstructions" class="card" hidden></div>
+
+        <footer id="siteFooter"></footer>
+    </div>
+    <script>
+        renderSiteNav('retain');
+        renderSiteFooter('<p>© 2026 Justin Landess Immigration Law Group.</p>');
+
+        let publicConfig = null;
+        let referenceId = null;
+
+        document.querySelectorAll('input[name="payMethod"]').forEach(r => {
+            r.addEventListener('change', () => {
+                const manual = ['zelle', 'chime'].includes(document.querySelector('input[name="payMethod"]:checked').value);
+                document.getElementById('payerNoteWrap').hidden = !manual;
+            });
+        });
+
+        async function loadConfig() {
+            publicConfig = await fetchPublicConfig();
+            const box = document.getElementById('configNotice');
+            const pricing = document.getElementById('pricingDisclosure');
+            if (!publicConfig) {
+                box.textContent = 'Payment API unavailable. Configure js/site-config.js apiBaseUrl and deploy the server, or contact the firm directly via intake.';
+                return;
+            }
+            pricing.innerHTML = `
+                <p><strong>Attorney services:</strong> ${publicConfig.hourlyRateDisplay} (standard hourly rate).</p>
+                <p><strong>Initial deposit due today:</strong> ${publicConfig.retainerDepositDisplay} — ${publicConfig.disclosures.depositNote}</p>
+                <p>${publicConfig.disclosures.engagementNote}</p>
+                <p>${publicConfig.disclosures.hourlyRateNote}</p>
+            `;
+            if (!publicConfig.stripeConfigured) {
+                box.textContent = 'Stripe checkout is disabled until the firm enables PAYMENTS_ENABLED and test/live keys. Zelle/Chime appear when configured in server environment variables.';
+            } else {
+                box.textContent = 'Stripe test/live mode is controlled by the firm’s Stripe account keys.';
+            }
+        }
+
+        document.getElementById('retainForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('formStatus');
+            status.textContent = 'Processing…';
+            const body = {
+                practiceArea: document.getElementById('practiceArea').value,
+                serviceType: document.getElementById('serviceType').value,
+                notes: document.getElementById('notes').value,
+                contactName: document.getElementById('contactName').value,
+                contactEmail: document.getElementById('contactEmail').value
+            };
+            try {
+                const res = await fetch(`${SITE_CONFIG.apiBaseUrl}/api/retain/intake`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Request failed');
+                referenceId = data.referenceId;
+                const method = document.querySelector('input[name="payMethod"]:checked').value;
+                if (method === 'stripe') {
+                    const pay = await fetch(`${SITE_CONFIG.apiBaseUrl}/api/checkout/stripe`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ referenceId })
+                    });
+                    const payData = await pay.json();
+                    if (!pay.ok) throw new Error(payData.error || 'Checkout unavailable');
+                    window.location.href = payData.url;
+                    return;
+                }
+                const manual = await fetch(`${SITE_CONFIG.apiBaseUrl}/api/payments/manual`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        referenceId,
+                        method,
+                        payerNote: document.getElementById('payerNote').value
+                    })
+                });
+                const manualData = await manual.json();
+                if (!manual.ok) throw new Error(manualData.error || 'Manual payment unavailable');
+                const inst = document.getElementById('manualInstructions');
+                inst.hidden = false;
+                inst.innerHTML = `
+                    <h2>Manual payment instructions</h2>
+                    <p>Reference ID: <strong>${referenceId}</strong></p>
+                    <p>Amount: <strong>$${manualData.instructions.amount.toFixed(2)}</strong></p>
+                    <p>Send to: <strong>${manualData.instructions.contact}</strong></p>
+                    <p>Include reference ID in the memo/note field.</p>
+                    <p class="disclosure-box">${manualData.message}</p>
+                `;
+                status.textContent = 'Submitted. Await firm verification.';
+            } catch (err) {
+                status.textContent = err.message;
+            }
+        });
+
+        loadConfig();
+    </script>
+</body>
+</html>

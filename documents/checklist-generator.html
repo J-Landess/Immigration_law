@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intake Checklist Generator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        @media print {
+            #lang-selector, .no-print, nav, .site-header { display: none !important; }
+            body { background: #fff; color: #000; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header no-print">
+            <a href="../index.html"><img class="logo-full" src="../images/logo-full.png" alt=""></a>
+        </header>
+        <h1>Client preparation checklist</h1>
+        <p class="section-lead no-print">Answers are processed in your browser only. Nothing is sent to our server unless you choose to email or print and share.</p>
+
+        <form id="genForm" class="card no-print">
+            <div class="form-group">
+                <label for="area">Area</label>
+                <select id="area">
+                    <option value="immigration">Immigration</option>
+                    <option value="tax">Tax</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nickname">Your initials or nickname (optional)</label>
+                <input type="text" id="nickname" maxlength="20" placeholder="Not required">
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" id="c_id"> Government ID / passport copies ready</label><br>
+                <label><input type="checkbox" id="c_tax"> Tax returns / IRS notices gathered</label><br>
+                <label><input type="checkbox" id="c_imm"> Immigration history timeline drafted</label><br>
+                <label><input type="checkbox" id="c_emp"> Employment records (if relevant)</label>
+            </div>
+            <button type="button" class="btn" id="generateBtn">Generate checklist</button>
+            <button type="button" class="btn btn-secondary" onclick="window.print()">Print / Save as PDF</button>
+        </form>
+
+        <div id="output" class="card"></div>
+    </div>
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            const area = document.getElementById('area').value;
+            const nick = document.getElementById('nickname').value || 'Client';
+            const items = [];
+            if (document.getElementById('c_id').checked) items.push('Government ID / passport copies');
+            if (document.getElementById('c_tax').checked) items.push('Tax returns and IRS notices');
+            if (document.getElementById('c_imm').checked) items.push('Immigration timeline');
+            if (document.getElementById('c_emp').checked) items.push('Employment records');
+            const defaults = area.includes('tax')
+                ? ['W-2s / 1099s for relevant years', 'Prior IRS correspondence', 'Tip/overtime documentation if claiming OBBBA deductions']
+                : [];
+            const imm = area.includes('immigration')
+                ? ['I-94 travel history (if available)', 'Prior USCIS receipts', 'Court hearing notices (if any)']
+                : [];
+            const all = [...new Set([...items, ...defaults, ...imm])];
+            document.getElementById('output').innerHTML = `
+                <h2>Checklist for ${nick.replace(/</g, '')}</h2>
+                <p>Generated ${new Date().toLocaleDateString()} — for organization only, not legal advice.</p>
+                <ul>${all.map(i => `<li>${i}</li>`).join('') || '<li>No items selected — use checkboxes above.</li>'}</ul>
+                <p class="muted">Next step: <a href="../retain.html">retain an attorney</a> or <a href="../intake.html">request consultation</a>.</p>
+            `;
+        });
+    </script>
+</body>
+</html>

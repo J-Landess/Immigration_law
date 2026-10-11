@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justin Landess Immigration Law - Green Cards & Spousal Sponsorship</title>
     <link rel="stylesheet" href="theme.css">
+    <script src="js/site-nav.js"></script>
 </head>
 <body>
     <div id="lang-selector">
@@ -23,14 +24,32 @@
         <h2 id="subheading"></h2>
         <p id="intro1"></p>
         <p id="intro2"></p>
+
+        <div class="privacy-banner">
+            <strong id="privacyBannerTitle"></strong>
+            <p id="privacyBannerText"></p>
+        </div>
+
+        <div class="path-grid">
+            <div class="path-card path-free">
+                <h2 id="pathFreeTitle"></h2>
+                <p class="muted" id="pathFreeText"></p>
+                <a class="btn btn-secondary" id="pathFreeBtn" href="free-resources.html"></a>
+            </div>
+            <div class="path-card path-paid">
+                <h2 id="pathPaidTitle"></h2>
+                <p class="muted" id="pathPaidText"></p>
+                <a class="btn" id="pathPaidBtn" href="retain.html"></a>
+            </div>
+        </div>
         
         <a class="btn" id="consultationBtn" href="intake.html"></a>
-        <a class="btn" id="contactBtn" href="intake.html"></a>
+        <a class="btn btn-secondary" id="contactBtn" href="intake.html"></a>
 
         <div class="card card-highlight">
             <h2 id="taxIrsHeading" style="margin-top: 0;"></h2>
             <p id="taxIrsText"></p>
-            <a class="btn btn-secondary" id="taxIrsBtn" href="tax-shelter.html"></a>
+            <a class="btn btn-secondary" id="taxIrsBtn" href="tax-services.html"></a>
         </div>
 
         <div class="card">
@@ -80,10 +99,9 @@
         </div>
 
         <div class="card">
-            <h3 id="testimonialsTitle"></h3>
-            <p id="testimonial1"></p>
-            <p id="testimonial2"></p>
-            <p id="testimonial3"></p>
+            <h3 id="expectTitle"></h3>
+            <ul id="expectList"></ul>
+            <p class="disclosure-box" id="expectDisclaimer"></p>
         </div>
 
         <div class="cta-band">
@@ -93,6 +111,7 @@
         </div>
 
         <footer id="footer"></footer>
+        <div id="siteFooter"></div>
     </div>
 
     <script>
@@ -102,16 +121,21 @@
                 mainHeading: '🏛️ Justin Landess Immigration Law Group',
                 subheading: 'Specialized in Green Cards, Spousal Sponsorship & Deportation Defense',
                 intro1: 'Expert immigration attorney with 40+ years of legal experience serving Nevada families and individuals.',
-                intro2: 'Fast, reliable immigration solutions. Transparent pricing. Proven results.',
-                consultationBtn: '📋 GET FREE CONSULTATION',
-                contactBtn: '📞 CONTACT US NOW',
+                intro2: 'Privacy-first guidance for immigration and tax matters in Las Vegas and Nevada. $200/hr attorney services; free resources to start.',
+                privacyBannerTitle: 'Privacy comes first',
+                privacyBannerText: 'Stay anonymous while exploring your options—browse resources and use free tools without an account. Retaining counsel or submitting intake may require identifying information when legally necessary.',
+                pathFreeTitle: 'Get started for free',
+                pathFreeText: 'Checklists, process guides, and tax-law summaries—no payment required.',
+                pathFreeBtn: 'Free resources',
+                pathPaidTitle: 'Secure an attorney now',
+                pathPaidText: 'Confidential retention, clear deposit amount, pay via Stripe or verified Zelle/Chime.',
+                pathPaidBtn: 'Retain now',
+                consultationBtn: '📋 FREE CONSULTATION REQUEST',
+                contactBtn: '📞 CONTACT FORM',
+                nav: { home: 'Home', about: 'About Us', tax: 'Tax Services', immigration: 'Immigration', free: 'Free Resources', pricing: 'Pricing', retain: 'Retain Attorney', contact: 'Contact' },
                 taxIrsHeading: 'Worried about the IRS?',
                 taxIrsText: 'Ask about our Instant Tax Shelter and tax forgiveness information. Confidential review of your options—no obligation.',
                 taxIrsBtn: '💼 ASK ABOUT TAX RELIEF',
-                navHome: 'Home',
-                navAbout: 'About Us',
-                navWhatWeDo: 'What We Do',
-                navTax: 'Tax Relief',
                 exploreTitle: 'Learn more about our firm',
                 exploreAbout: 'About us & photos',
                 exploreWhat: 'What we do',
@@ -147,10 +171,14 @@
                 statsExperience: 'Years Experience',
                 statsSuccess: 'Success Rate',
                 statsFamilies: 'Families Helped',
-                testimonials: 'Client Testimonials',
-                testimonial1: '⭐⭐⭐⭐⭐ "Mr. Landess helped us reunite with my spouse. The process was smooth and stress-free."',
-                testimonial2: '⭐⭐⭐⭐⭐ "They explained everything clearly and worked within our budget. Highly recommended!"',
-                testimonial3: '⭐⭐⭐⭐⭐ "When facing deportation, we didn\'t know where to turn. Mr. Landess saved our family. We can\'t thank him enough!"',
+                expectTitle: 'What to expect',
+                expectItems: [
+                    'Clear explanation of free resources vs. paid attorney services',
+                    'Progressive intake—details only when needed for your step',
+                    'Written engagement terms before billable representation',
+                    'Hourly billing at $200/hr unless otherwise agreed'
+                ],
+                expectDisclaimer: 'Prior case results and statistics on this site should be verified by the firm before relying on them in advertising.',
                 readyHeading: 'Ready to Secure Your Immigration Future?',
                 readyText: 'Don\'t navigate immigration alone. Get your free consultation today and take the first step toward your goals.',
                 getStartedBtn: 'GET STARTED NOW',
@@ -162,16 +190,21 @@
                 mainHeading: '🏛️ Grupo de Ley de Inmigración Justin Landess',
                 subheading: 'Especializado en Tarjetas Verdes, Patrocinio Conyugal y Defensa de Deportación',
                 intro1: 'Abogado de inmigración experto con más de 40 años de experiencia legal sirviendo a familias e individuos de Nevada.',
-                intro2: 'Soluciones de inmigración rápidas y confiables. Precios transparentes. Resultados comprobados.',
-                consultationBtn: '📋 OBTÉN CONSULTA GRATUITA',
-                contactBtn: '📞 CONTÁCTENOS AHORA',
+                intro2: 'Privacidad primero — inmigración e impuestos en Nevada. $200/hr; recursos gratuitos para comenzar.',
+                privacyBannerTitle: 'La privacidad primero',
+                privacyBannerText: 'Permanezca anónimo mientras explora recursos gratuitos. Contratar al abogado puede requerir identificación cuando la ley lo exija.',
+                pathFreeTitle: 'Comience gratis',
+                pathFreeText: 'Listas, guías y resúmenes fiscales.',
+                pathFreeBtn: 'Recursos gratuitos',
+                pathPaidTitle: 'Contrate un abogado',
+                pathPaidText: 'Retención confidencial con depósito claro.',
+                pathPaidBtn: 'Contratar ahora',
+                consultationBtn: '📋 SOLICITUD DE CONSULTA',
+                contactBtn: '📞 FORMULARIO',
+                nav: { home: 'Inicio', about: 'Quiénes Somos', tax: 'Impuestos', immigration: 'Inmigración', free: 'Gratis', pricing: 'Precios', retain: 'Contratar', contact: 'Contacto' },
                 taxIrsHeading: '¿Preocupado por el IRS?',
                 taxIrsText: 'Pregunte sobre nuestro Refugio Fiscal Instantáneo e información sobre perdón de impuestos. Revisión confidencial de sus opciones—sin obligación.',
                 taxIrsBtn: '💼 PREGUNTE SOBRE ALIVIO FISCAL',
-                navHome: 'Inicio',
-                navAbout: 'Quiénes Somos',
-                navWhatWeDo: 'Qué Hacemos',
-                navTax: 'Alivio Fiscal',
                 exploreTitle: 'Conozca más sobre nuestra firma',
                 exploreAbout: 'Quiénes somos y fotos',
                 exploreWhat: 'Qué hacemos',
@@ -207,10 +240,14 @@
                 statsExperience: 'Años de Experiencia',
                 statsSuccess: 'Tasa de Éxito',
                 statsFamilies: 'Familias Ayudadas',
-                testimonials: 'Testimonios de Clientes',
-                testimonial1: '⭐⭐⭐⭐⭐ "El Sr. Landess nos ayudó a reunirnos con mi cónyuge. El proceso fue suave y sin estrés."',
-                testimonial2: '⭐⭐⭐⭐⭐ "Explicaron todo claramente y trabajaron dentro de nuestro presupuesto. ¡Muy recomendado!"',
-                testimonial3: '⭐⭐⭐⭐⭐ "Cuando enfrentábamos la deportación, no sabíamos a dónde ir. El Sr. Landess salvó a nuestra familia. ¡No podemos agradecerle lo suficiente!"',
+                expectTitle: 'Qué esperar',
+                expectItems: [
+                    'Recursos gratuitos vs. servicios de abogado claramente separados',
+                    'Intake progresivo',
+                    'Acuerdo por escrito antes de honorarios',
+                    '$200/hr salvo acuerdo distinto'
+                ],
+                expectDisclaimer: 'Verifique estadísticas y resultados con la firma.',
                 readyHeading: '¿Listo para Asegurar Tu Futuro de Inmigración?',
                 readyText: 'No navegues la inmigración solo. Obtén tu consulta gratuita hoy y da el primer paso hacia tus objetivos.',
                 getStartedBtn: 'COMENZAR AHORA',
@@ -231,31 +268,25 @@
             document.querySelector(`#lang-selector button[data-lang="${language}"]`).classList.add('active');
         }
 
-        function renderNav(t) {
-            const links = [
-                { href: 'index.html', key: 'navHome', active: true },
-                { href: 'about-us.html', key: 'navAbout', active: false },
-                { href: 'what-we-do.html', key: 'navWhatWeDo', active: false },
-                { href: 'tax-shelter.html', key: 'navTax', active: false }
-            ];
-            document.getElementById('siteNav').innerHTML = links.map(link => {
-                if (link.active) {
-                    return `<span class="active">${t[link.key]}</span>`;
-                }
-                return `<a href="${link.href}">${t[link.key]}</a>`;
-            }).join('');
-        }
-
         function translatePage(language) {
             const t = translations[language];
             
             document.documentElement.lang = language;
             document.title = t.pageTitle;
-            renderNav(t);
+            renderSiteNav('home', t.nav);
+            renderSiteFooter(`<p>${t.footer}</p><p>${t.footerDisclaimer}</p>`);
             document.getElementById('mainHeading').textContent = t.mainHeading;
             document.getElementById('subheading').textContent = t.subheading;
             document.getElementById('intro1').textContent = t.intro1;
             document.getElementById('intro2').textContent = t.intro2;
+            document.getElementById('privacyBannerTitle').textContent = t.privacyBannerTitle;
+            document.getElementById('privacyBannerText').textContent = t.privacyBannerText;
+            document.getElementById('pathFreeTitle').textContent = t.pathFreeTitle;
+            document.getElementById('pathFreeText').textContent = t.pathFreeText;
+            document.getElementById('pathFreeBtn').textContent = t.pathFreeBtn;
+            document.getElementById('pathPaidTitle').textContent = t.pathPaidTitle;
+            document.getElementById('pathPaidText').textContent = t.pathPaidText;
+            document.getElementById('pathPaidBtn').textContent = t.pathPaidBtn;
             document.getElementById('consultationBtn').textContent = t.consultationBtn;
             document.getElementById('contactBtn').textContent = t.contactBtn;
             document.getElementById('taxIrsHeading').textContent = t.taxIrsHeading;
@@ -278,10 +309,9 @@
             document.getElementById('statsExp').textContent = t.statsExperience;
             document.getElementById('statsSuc').textContent = t.statsSuccess;
             document.getElementById('statsFam').textContent = t.statsFamilies;
-            document.getElementById('testimonialsTitle').textContent = t.testimonials;
-            document.getElementById('testimonial1').textContent = t.testimonial1;
-            document.getElementById('testimonial2').textContent = t.testimonial2;
-            document.getElementById('testimonial3').textContent = t.testimonial3;
+            document.getElementById('expectTitle').textContent = t.expectTitle;
+            document.getElementById('expectList').innerHTML = t.expectItems.map(i => `<li>${i}</li>`).join('');
+            document.getElementById('expectDisclaimer').textContent = t.expectDisclaimer;
             document.getElementById('readyHeading').textContent = t.readyHeading;
             document.getElementById('readyText').textContent = t.readyText;
             document.getElementById('getStartedBtn').textContent = t.getStartedBtn;

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Justin Landess Immigration Law</title>
+    <title>About Us — Privacy-First Tax &amp; Immigration Law | Las Vegas</title>
     <link rel="stylesheet" href="theme.css">
     <style>
         .photo-card img.portrait { object-fit: contain; background: var(--mx-green-dark); height: 260px; }
     </style>
 </head>
-<body>
+<body data-nav-active="about">
     <div id="lang-selector">
         <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
         <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
@@ -21,151 +21,204 @@
                 <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
             </a>
         </header>
-        <nav class="site-nav" id="siteNav"></nav>
+        <nav class="site-nav" id="siteNav" aria-label="Main"></nav>
 
         <h1 id="pageHeading"></h1>
-        <p id="lead"></p>
+        <p class="section-lead" id="lead"></p>
+
+        <div class="privacy-banner" role="note">
+            <strong id="privacyBannerTitle"></strong>
+            <p id="privacyBannerText"></p>
+        </div>
+
+        <div class="path-grid">
+            <div class="path-card path-free">
+                <h2 id="pathFreeTitle"></h2>
+                <p class="muted" id="pathFreeText"></p>
+                <a class="btn btn-secondary" id="pathFreeBtn" href="free-resources.html"></a>
+            </div>
+            <div class="path-card path-paid">
+                <h2 id="pathPaidTitle"></h2>
+                <p class="muted" id="pathPaidText"></p>
+                <a class="btn" id="pathPaidBtn" href="retain.html"></a>
+            </div>
+        </div>
 
         <div class="photo-grid" id="photoGrid"></div>
 
-        <div class="card">
-            <h2 id="missionTitle"></h2>
-            <p id="missionText"></p>
-            <ul id="valuesList"></ul>
-        </div>
+        <section class="content-section card">
+            <h2 id="privacyTitle"></h2>
+            <p id="privacyP1"></p>
+            <p id="privacyP2"></p>
+            <ul class="trust-list" id="privacyList"></ul>
+            <div class="disclosure-box" id="privacyDisclosure"></div>
+        </section>
 
-        <div class="card">
-            <h2 id="communityTitle"></h2>
-            <p id="communityText"></p>
-        </div>
+        <section class="content-section card">
+            <h2 id="approachTitle"></h2>
+            <p id="approachP1"></p>
+            <p id="approachP2"></p>
+        </section>
 
-        <a class="btn" id="consultBtn" href="intake.html"></a>
-        <a class="btn btn-secondary" id="whatWeDoBtn" href="what-we-do.html"></a>
+        <section class="content-section card">
+            <h2 id="accessTitle"></h2>
+            <p id="accessP1"></p>
+            <p id="accessP2"></p>
+            <a class="btn btn-secondary" id="hardshipBtn" href="hardship.html"></a>
+        </section>
+
+        <section class="content-section card">
+            <h2 id="credentialsTitle"></h2>
+            <p id="credentialsP1"></p>
+            <ul class="trust-list" id="credentialsList"></ul>
+            <p class="muted" id="credentialsNote"></p>
+        </section>
 
         <footer id="footer"></footer>
+        <div id="siteFooter"></div>
     </div>
 
+    <script src="js/site-nav.js"></script>
     <script>
         const PHOTOS = [
-            {
-                src: 'images/logo-attorney-portrait.png',
-                captionKey: 'photoAttorney',
-                imgClass: 'portrait'
-            },
-            {
-                src: 'images/logo-legal-symbols.png',
-                captionKey: 'photoLegal',
-                imgClass: ''
-            },
-            {
-                src: 'images/logo-vegas-skyline.png',
-                captionKey: 'photoVegas',
-                imgClass: ''
-            }
+            { src: 'images/logo-attorney-portrait.png', captionKey: 'photoAttorney', imgClass: 'portrait' },
+            { src: 'images/logo-legal-symbols.png', captionKey: 'photoLegal', imgClass: '' },
+            { src: 'images/logo-vegas-skyline.png', captionKey: 'photoVegas', imgClass: '' }
         ];
 
         const translations = {
             en: {
-                pageTitle: 'About Us - Justin Landess Immigration Law',
-                navHome: 'Home',
-                navAbout: 'About Us',
-                navWhatWeDo: 'What We Do',
-                navTax: 'Tax Relief',
-                pageHeading: 'About Us',
-                lead: 'Justin Landess Immigration Law Group is rooted in Las Vegas and greater Nevada. We serve working families, professionals, and individuals who need clear guidance on immigration—and related tax stress—without jargon or runaround.',
-                photoAttorney: 'Justin Landess — tax and immigration counsel serving Las Vegas and Nevada.',
-                photoLegal: 'Immigration, tax, and federal compliance — advocacy when the stakes are highest.',
-                photoVegas: 'Las Vegas skyline — proud to serve Southern Nevada\'s working families.',
-                missionTitle: 'Our mission',
-                missionText: 'For more than four decades, our practice has combined courtroom experience with a practical, compassionate approach. We explain your options in plain language, respect your time and budget, and fight for outcomes that keep families together.',
-                valuesItems: [
-                    'Integrity and transparent fees',
-                    'Respect for every client\'s story',
-                    'Deep knowledge of federal immigration process',
-                    'Local roots — UNLV Law, Nevada courts, and community ties'
+                pageTitle: 'About Us — Privacy-First Tax & Immigration Law',
+                nav: { home: 'Home', about: 'About Us', tax: 'Tax Services', immigration: 'Immigration', free: 'Free Resources', pricing: 'Pricing', retain: 'Retain Attorney', contact: 'Contact' },
+                pageHeading: 'About our practice',
+                lead: 'We help Nevada families and workers navigate immigration and tax issues with clear communication, transparent pricing, and a privacy-first approach to how we collect and use information.',
+                privacyBannerTitle: 'Privacy is our first concern',
+                privacyBannerText: 'Stay anonymous while exploring your options: browse services, read resources, and use eligible free tools without creating an account. When you choose to retain counsel or submit an intake form, we collect only what is needed for that step—and we explain why.',
+                pathFreeTitle: 'Get started for free',
+                pathFreeText: 'Explore resources, complete preliminary questionnaires, and generate supported checklists and summary documents where available—no payment required.',
+                pathFreeBtn: 'Free resources',
+                pathPaidTitle: 'Secure an attorney now',
+                pathPaidText: 'Need individualized legal help? Start a confidential retention request, review pricing ($200/hr standard rate), and pay an initial deposit via Stripe, Zelle, or Chime when configured.',
+                pathPaidBtn: 'Retain an attorney',
+                photoAttorney: 'Justin Landess — Las Vegas tax and immigration counsel.',
+                photoLegal: 'Federal tax and immigration matters require careful, discreet handling.',
+                photoVegas: 'Serving Las Vegas and communities across Nevada.',
+                privacyTitle: 'How we think about privacy',
+                privacyP1: 'Many people who contact us are under financial stress, facing IRS correspondence, or worried about immigration consequences for themselves or their families. You should not have to surrender more personal data than the service requires.',
+                privacyP2: 'We design our website around data minimization: public pages do not require login; free tools avoid storing sensitive answers in the browser when possible; paid retention collects contact details only when you initiate that path.',
+                privacyList: [
+                    'HTTPS for connections to this website (via GitHub Pages / your host)',
+                    'Form submissions sent only to services you choose (e.g., Formspree intake, payment API)',
+                    'No account required to read public content or use listed free tools',
+                    'Payment card data handled by Stripe—not stored on this static site',
+                    'Manual Zelle/Chime payments marked pending until the firm verifies funds'
                 ],
-                communityTitle: 'Serving Las Vegas & Nevada',
-                communityText: 'From the Strip to suburban neighborhoods and rural counties, we understand the mix of cultures and industries that make Nevada strong. Whether you work in hospitality, construction, healthcare, or run your own business, you deserve a legal team that listens.',
-                consultBtn: '📋 FREE CONSULTATION',
-                whatWeDoBtn: 'See what we do',
+                privacyDisclosure: 'This site is not end-to-end encrypted. Submitting forms, paying a deposit, or engaging counsel may require identifying information for conflicts checks, engagement agreements, court rules, or payment processing. Payment alone does not create an attorney–client relationship.',
+                approachTitle: 'Education, documents, and representation',
+                approachP1: 'We distinguish general information and self-help materials from legal advice tailored to your situation. Free resources help you organize facts and understand common processes; representation begins only after an engagement agreement and conflicts review.',
+                approachP2: 'Standard attorney services are billed at $200 per hour unless a different fee is agreed in writing. An initial retainer deposit (amount shown at checkout) may be required before billable work begins.',
+                accessTitle: 'Access for clients with limited resources',
+                accessP1: 'Legal help should not be out of reach solely because of finances. If you are experiencing hardship, you may request a conversation about reduced fees or payment arrangements. Eligibility is reviewed individually—we do not guarantee that every request will qualify.',
+                accessP2: 'We do not ask for unnecessary financial documents in the initial hardship request.',
+                hardshipBtn: 'Request financial assistance',
+                credentialsTitle: 'Professional background',
+                credentialsP1: 'Justin Landess serves clients in Las Vegas and Nevada on immigration and related tax matters. Verified credentials and bar admissions should be confirmed directly with the firm.',
+                credentialsList: [
+                    'UNLV William S. Boyd School of Law — [confirm year / degree with firm]',
+                    'Nevada legal community — [confirm bar status with firm]',
+                    'Former prosecutor — experience with government process [confirm details with firm]'
+                ],
+                credentialsNote: 'Placeholder items above must be confirmed by the firm before publishing as statements of fact.',
                 footer: '© 2026 Justin Landess Immigration Law Group. All rights reserved.',
-                footerDisclaimer: 'Attorney Advertising. Results not guaranteed.'
+                footerDisclaimer: 'Attorney advertising. Prior results do not guarantee future outcomes.'
             },
             es: {
-                pageTitle: 'Quiénes Somos - Justin Landess',
-                navHome: 'Inicio',
-                navAbout: 'Quiénes Somos',
-                navWhatWeDo: 'Qué Hacemos',
-                navTax: 'Alivio Fiscal',
-                pageHeading: 'Quiénes Somos',
-                lead: 'El Grupo de Ley de Inmigración Justin Landess tiene sus raíces en Las Vegas y el resto de Nevada. Servimos a familias trabajadoras, profesionales e individuos que necesitan orientación clara sobre inmigración—y estrés fiscal relacionado—sin tecnicismos ni demoras.',
-                photoAttorney: 'Justin Landess — asesoría fiscal y de inmigración en Las Vegas y Nevada.',
-                photoLegal: 'Inmigración, impuestos y cumplimiento federal — defensa cuando más importa.',
-                photoVegas: 'Horizonte de Las Vegas — orgullosos de servir a las familias trabajadoras del sur de Nevada.',
-                missionTitle: 'Nuestra misión',
-                missionText: 'Durante más de cuatro décadas, nuestra práctica ha combinado experiencia en tribunales con un enfoque práctico y compasivo. Explicamos sus opciones en lenguaje claro, respetamos su tiempo y presupuesto, y luchamos por resultados que mantengan unidas a las familias.',
-                valuesItems: [
-                    'Integridad y honorarios transparentes',
-                    'Respeto por la historia de cada cliente',
-                    'Conocimiento profundo del proceso migratorio federal',
-                    'Raíces locales — Derecho UNLV, tribunales de Nevada y lazos comunitarios'
+                pageTitle: 'Quiénes Somos — Privacidad primero',
+                nav: { home: 'Inicio', about: 'Quiénes Somos', tax: 'Servicios Fiscales', immigration: 'Inmigración', free: 'Recursos Gratis', pricing: 'Precios', retain: 'Contratar Abogado', contact: 'Contacto' },
+                pageHeading: 'Sobre nuestra práctica',
+                lead: 'Ayudamos a familias y trabajadores de Nevada con inmigración e impuestos, con comunicación clara, precios transparentes y un enfoque que prioriza la privacidad.',
+                privacyBannerTitle: 'La privacidad es nuestra prioridad',
+                privacyBannerText: 'Permanezca anónimo mientras explora: navegue servicios, lea recursos y use herramientas gratuitas sin crear cuenta. Si contrata al abogado o envía un formulario, solo pedimos lo necesario para ese paso.',
+                pathFreeTitle: 'Comience gratis',
+                pathFreeText: 'Explore recursos, cuestionarios preliminares y listas de verificación disponibles sin pago.',
+                pathFreeBtn: 'Recursos gratuitos',
+                pathPaidTitle: 'Contrate un abogado ahora',
+                pathPaidText: '¿Necesita ayuda legal personalizada? Inicie una solicitud confidencial, revise precios ($200/hr) y pague un depósito inicial cuando esté configurado.',
+                pathPaidBtn: 'Contratar abogado',
+                photoAttorney: 'Justin Landess — Las Vegas.',
+                photoLegal: 'Asuntos fiscales y de inmigración federal.',
+                photoVegas: 'Sirviendo a Las Vegas y Nevada.',
+                privacyTitle: 'Privacidad',
+                privacyP1: 'Muchas personas enfrentan estrés financiero, cartas del IRS o preocupación migratoria. No debe compartir más datos de los necesarios.',
+                privacyP2: 'Minimizamos datos: páginas públicas sin login; herramientas gratuitas evitan guardar respuestas sensibles cuando es posible.',
+                privacyList: [
+                    'HTTPS en el sitio',
+                    'Formularios solo a servicios que usted elige',
+                    'Sin cuenta para contenido público',
+                    'Pagos con tarjeta vía Stripe',
+                    'Zelle/Chime pendientes hasta verificación'
                 ],
-                communityTitle: 'Sirviendo a Las Vegas y Nevada',
-                communityText: 'Desde el Strip hasta barrios suburbanos y condados rurales, entendemos la mezcla de culturas e industrias que hace fuerte a Nevada. Ya sea en hospitalidad, construcción, salud o su propio negocio, merece un equipo legal que escuche.',
-                consultBtn: '📋 CONSULTA GRATUITA',
-                whatWeDoBtn: 'Ver qué hacemos',
-                footer: '© 2026 Grupo de Ley de Inmigración Justin Landess. Todos los derechos reservados.',
-                footerDisclaimer: 'Publicidad de abogado. Resultados no garantizados.'
+                privacyDisclosure: 'El pago por sí solo no crea relación abogado-cliente. La representación requiere acuerdo por escrito.',
+                approachTitle: 'Información, documentos y representación',
+                approachP1: 'Distinguimos materiales informativos de asesoría legal personalizada.',
+                approachP2: 'Servicios del abogado: $200 por hora salvo acuerdo distinto. Puede requerirse depósito inicial.',
+                accessTitle: 'Acceso con recursos limitados',
+                accessP1: 'Puede solicitar conversación sobre honorarios reducidos o arreglos de pago. No garantizamos que todas las solicitudes califiquen.',
+                accessP2: 'No pedimos documentos financieros innecesarios al inicio.',
+                hardshipBtn: 'Asistencia financiera',
+                credentialsTitle: 'Antecedentes profesionales',
+                credentialsP1: 'Confirme credenciales directamente con la firma.',
+                credentialsList: ['UNLV Law — confirmar con firma', 'Barra de Nevada — confirmar', 'Experiencia como fiscal — confirmar'],
+                credentialsNote: 'Los elementos marcados deben confirmarse antes de publicarse como hechos.',
+                footer: '© 2026 Grupo Justin Landess. Todos los derechos reservados.',
+                footerDisclaimer: 'Publicidad de abogado. Resultados previos no garantizan resultados futuros.'
             }
         };
-
-        function renderNav(t, active) {
-            const links = [
-                { href: 'index.html', key: 'navHome', id: 'home' },
-                { href: 'about-us.html', key: 'navAbout', id: 'about' },
-                { href: 'what-we-do.html', key: 'navWhatWeDo', id: 'what' },
-                { href: 'tax-shelter.html', key: 'navTax', id: 'tax' }
-            ];
-            document.getElementById('siteNav').innerHTML = links.map(link => {
-                const cls = link.id === active ? ' class="active"' : '';
-                return `<a href="${link.href}"${cls}>${t[link.key]}</a>`;
-            }).join('');
-        }
 
         function setLanguage(language) {
             localStorage.setItem('preferredLanguage', language);
             const t = translations[language];
             document.documentElement.lang = language;
             document.title = t.pageTitle;
-            renderNav(t, 'about');
+            renderSiteNav('about', t.nav);
+            renderSiteFooter(`<p>${t.footer}</p><p class="muted">${t.footerDisclaimer}</p>`);
+
             document.getElementById('pageHeading').textContent = t.pageHeading;
             document.getElementById('lead').textContent = t.lead;
+            document.getElementById('privacyBannerTitle').textContent = t.privacyBannerTitle;
+            document.getElementById('privacyBannerText').textContent = t.privacyBannerText;
+            document.getElementById('pathFreeTitle').textContent = t.pathFreeTitle;
+            document.getElementById('pathFreeText').textContent = t.pathFreeText;
+            document.getElementById('pathFreeBtn').textContent = t.pathFreeBtn;
+            document.getElementById('pathPaidTitle').textContent = t.pathPaidTitle;
+            document.getElementById('pathPaidText').textContent = t.pathPaidText;
+            document.getElementById('pathPaidBtn').textContent = t.pathPaidBtn;
+
             document.getElementById('photoGrid').innerHTML = PHOTOS.map(photo => `
                 <figure class="photo-card">
-                    <img src="${photo.src}" class="${photo.imgClass}" alt="${t[photo.captionKey]}" loading="lazy" width="600" height="400">
+                    <img src="${photo.src}" class="${photo.imgClass}" alt="${t[photo.captionKey]}" loading="lazy">
                     <figcaption>${t[photo.captionKey]}</figcaption>
                 </figure>
             `).join('');
-            document.getElementById('missionTitle').textContent = t.missionTitle;
-            document.getElementById('missionText').textContent = t.missionText;
-            document.getElementById('valuesList').innerHTML = t.valuesItems.map(item => `<li>${item}</li>`).join('');
-            document.getElementById('communityTitle').textContent = t.communityTitle;
-            document.getElementById('communityText').textContent = t.communityText;
-            document.getElementById('consultBtn').textContent = t.consultBtn;
-            document.getElementById('whatWeDoBtn').textContent = t.whatWeDoBtn;
+
+            ['privacyTitle','privacyP1','privacyP2','privacyDisclosure','approachTitle','approachP1','approachP2',
+             'accessTitle','accessP1','accessP2','credentialsTitle','credentialsP1','credentialsNote','hardshipBtn'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = t[id];
+            });
+            document.getElementById('privacyList').innerHTML = t.privacyList.map(i => `<li>${i}</li>`).join('');
+            document.getElementById('credentialsList').innerHTML = t.credentialsList.map(i => `<li>${i}</li>`).join('');
             document.getElementById('footer').innerHTML = `<p>${t.footer}</p><p>${t.footerDisclaimer}</p>`;
+
             document.querySelectorAll('#lang-selector button').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === language);
             });
         }
 
-        function initLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            const lang = localStorage.getItem('preferredLanguage') || (userLang.startsWith('es') ? 'es' : 'en');
+        window.addEventListener('DOMContentLoaded', () => {
+            const lang = localStorage.getItem('preferredLanguage') || (navigator.language.startsWith('es') ? 'es' : 'en');
             setLanguage(lang);
-        }
-
-        window.addEventListener('DOMContentLoaded', initLanguage);
+        });
     </script>
 </body>
 </html>

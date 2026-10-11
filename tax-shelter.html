@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instant Tax Shelter &amp; Tax Forgiveness - Justin Landess</title>
-    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/site-nav.js"></script>
 </head>
 <body>
     <div id="lang-selector">
@@ -29,9 +30,11 @@
 
         <p id="ctaText"></p>
         <a class="btn" id="requestBtn" href="intake.html?topic=tax-shelter"></a>
-        <a class="btn btn-secondary" id="homeBtn" href="index.html"></a>
+        <a class="btn btn-secondary" id="homeBtn" href="tax-services.html"></a>
+        <a class="btn btn-secondary" href="retain.html">Secure an attorney now</a>
 
         <footer id="footer"></footer>
+        <div id="siteFooter"></div>
     </div>
 
     <script>
@@ -82,25 +85,13 @@
             }
         };
 
-        function renderNav(t) {
-            const links = [
-                { href: 'index.html', key: 'navHome', id: 'home' },
-                { href: 'about-us.html', key: 'navAbout', id: 'about' },
-                { href: 'what-we-do.html', key: 'navWhatWeDo', id: 'what' },
-                { href: 'tax-shelter.html', key: 'navTax', id: 'tax' }
-            ];
-            document.getElementById('siteNav').innerHTML = links.map(link => {
-                const cls = link.id === 'tax' ? ' class="active"' : '';
-                return `<a href="${link.href}"${cls}>${t[link.key]}</a>`;
-            }).join('');
-        }
-
         function setLanguage(language) {
             localStorage.setItem('preferredLanguage', language);
             const t = translations[language];
             document.documentElement.lang = language;
             document.title = t.pageTitle;
-            renderNav(t);
+            renderSiteNav('tax');
+            renderSiteFooter(`<p>${t.footer}</p><p>${t.footerDisclaimer}</p>`);
             document.getElementById('pageHeading').textContent = t.pageHeading;
             document.getElementById('lead').textContent = t.lead;
             document.getElementById('infoTitle').textContent = t.infoTitle;

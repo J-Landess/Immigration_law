@@ -1,5 +1,6 @@
 server/node_modules/
 server/.env
 server/data/*.json
+server/data/audit.log
 !server/data/.gitkeep
 .DS_Store

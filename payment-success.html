@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/site-config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank you</h1>
+        <p id="message">Verifying payment status…</p>
+        <p class="disclosure-box">Confirmation on this page is informational. Final status is determined server-side after Stripe webhook processing. Representation begins only after engagement agreement and conflicts check.</p>
+        <p><a href="index.html">Home</a> · Reference: <span id="ref"></span></p>
+    </div>
+    <script>
+        const ref = new URLSearchParams(location.search).get('ref');
+        document.getElementById('ref').textContent = ref || '—';
+        if (ref) {
+            fetch(`${SITE_CONFIG.apiBaseUrl}/api/payments/${encodeURIComponent(ref)}`)
+                .then(r => r.json())
+                .then(d => {
+                    document.getElementById('message').textContent =
+                        d.status === 'PAID'
+                            ? 'Payment recorded as PAID. The firm will contact you with next steps.'
+                            : `Current status: ${d.status || 'pending verification'}.`;
+                })
+                .catch(() => {
+                    document.getElementById('message').textContent = 'Unable to verify status. Contact the firm with your reference ID.';
+                });
+        }
+    </script>
+</body>
+</html>

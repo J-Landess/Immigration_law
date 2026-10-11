@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — Attorney Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/site-config.js"></script>
+    <script src="js/site-nav.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="index.html"><img class="logo-full" src="images/logo-full.png" alt=""></a>
+        </header>
+        <nav class="site-nav" id="siteNav"></nav>
+        <h1>Pricing</h1>
+        <p class="section-lead">Transparent fees. Free resources are separate from billable attorney time.</p>
+
+        <div class="card">
+            <table class="pricing-table">
+                <thead>
+                    <tr><th>Service</th><th>Fee</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Attorney services (standard)</td><td id="hourlyRate">$200.00 / hour</td></tr>
+                    <tr><td>Initial retainer deposit (retention path)</td><td id="depositAmount">See retain flow — configured by firm</td></tr>
+                    <tr><td>Free resources &amp; checklists</td><td>$0</td></tr>
+                </tbody>
+            </table>
+            <div class="disclosure-box">
+                <p>Hourly billing may use minimum increments and require written approval for additional work. Consultation billing depends on engagement terms.</p>
+                <p>Deposits may be held in trust subject to Nevada bar and accounting rules—terms provided before work begins.</p>
+            </div>
+            <a class="btn" href="retain.html">Secure an attorney now</a>
+            <a class="btn btn-secondary" href="free-resources.html">Get started for free</a>
+        </div>
+        <footer id="siteFooter"></footer>
+    </div>
+    <script>
+        renderSiteNav('pricing');
+        renderSiteFooter('<p>© 2026 Justin Landess Immigration Law Group.</p>');
+        fetchPublicConfig().then(c => {
+            if (!c) return;
+            document.getElementById('hourlyRate').textContent = c.hourlyRateDisplay;
+            document.getElementById('depositAmount').textContent = c.retainerDepositDisplay + ' (initial deposit)';
+        });
+    </script>
+</body>
+</html>

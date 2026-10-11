@@ -1,82 +1,41 @@
-# Immigration Law Attorney Website
+# Justin Landess — Tax & Immigration Law (Las Vegas)
 
-A professional website for an immigration law practice, built with modern web technologies to provide information and resources to clients seeking immigration legal services.
+Privacy-first static website with a separate **payments API** for attorney retention (Stripe + manual Zelle/Chime).
 
-## About
+## Quick start (frontend)
 
-This website serves as an online presence for an immigration attorney, offering clients information about services, legal expertise, and how to get in touch. The site is designed to be accessible, professional, and user-friendly.
+```bash
+python3 -m http.server 8080
+# http://localhost:8080/
+```
 
-## Technologies
+## Payments API (required for retain / Stripe)
 
-The project is built with:
+```bash
+cd server && cp .env.example .env && npm install && npm run dev
+```
 
-- **HTML** (77.8%) - Semantic markup for page structure and content
-- **CSS** (20.9%) - Styling and responsive design
-- **JavaScript** (1.3%) - Enhanced interactivity and user experience
+Set `js/site-config.js` → `apiBaseUrl` to your deployed API URL.
 
-## Features
+See [docs/CONFIG.md](docs/CONFIG.md) and [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md).
 
-- Professional and clean design
-- Responsive layout for mobile and desktop devices
-- Easy navigation for clients to learn about services
-- Contact information and call-to-action elements
-- Organized presentation of legal services and expertise
+## Key pages
 
-## Project Structure
+| Page | Purpose |
+|------|---------|
+| `index.html` | Home — free vs retain paths |
+| `about-us.html` | Privacy-first firm story |
+| `free-resources.html` | Anonymous-friendly tools |
+| `retain.html` | Attorney retention + payment |
+| `tax-services.html` | Tax marketing (IRS-sourced disclaimers) |
+| `pricing.html` | $200/hr + deposit (from API) |
 
-The repository contains the static web files needed to host the website, including HTML templates, stylesheets, and supporting JavaScript functionality.
+## Deploy
 
-## Getting Started
+- **Static site:** GitHub Pages (`main`)
+- **API:** Render or similar — see [server/README.md](server/README.md)
 
-### Prerequisites
+## Documentation
 
-No special dependencies required - this is a static website that works with any modern web browser.
-
-### Running Locally
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/J-Landess/Immigration_law.git
-   ```
-
-2. Navigate to the project directory:
-   ```bash
-   cd Immigration_law
-   ```
-
-3. Open the main HTML file in your web browser or serve it using a local web server:
-   ```bash
-   # Using Python 3
-   python -m http.server 8000
-   
-   # Using Python 2
-   python -m SimpleHTTPServer 8000
-   ```
-
-4. Visit `http://localhost:8000` in your browser
-
-## Deployment
-
-This static website can be deployed to:
-
-- GitHub Pages
-- Netlify
-- Vercel
-- Traditional web hosting services
-- Any static file hosting service
-
-## Contributing
-
-For updates to the website content or design, please ensure changes maintain the professional appearance and user experience standards.
-
-## License
-
-Please refer to the LICENSE file in the repository for licensing information.
-
-## Contact
-
-For inquiries about immigration legal services, visit the website or contact through the provided contact information.
-
----
-
-**Note:** This website is for informational purposes. For specific legal advice, please consult with a qualified immigration attorney directly.
+- [docs/AUDIT.md](docs/AUDIT.md) — stack audit
+- [docs/TAX-LAW-SOURCES.md](docs/TAX-LAW-SOURCES.md) — IRS references for tax copy
