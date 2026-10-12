@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us — Privacy-First Tax &amp; Immigration Law | Las Vegas</title>
     <link rel="stylesheet" href="theme.css">
-    <style>
-        .photo-card img.portrait { object-fit: contain; background: var(--mx-green-dark); height: 260px; }
-    </style>
+    <script src="js/stock-photos.js"></script>
 </head>
 <body data-nav-active="about">
+    <section class="legal-hero" aria-label="Courthouse — stock photo"></section>
     <div id="lang-selector">
         <button type="button" data-lang="en" onclick="setLanguage('en')">English</button>
         <button type="button" data-lang="es" onclick="setLanguage('es')">Español</button>
@@ -18,8 +17,9 @@
     <div class="container">
         <header class="site-header">
             <a href="index.html" aria-label="Home">
-                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
+                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Fuego Immigration and Tax">
             </a>
+            <p class="site-tagline">Fuego Immigration &amp; Tax — <em>El fuego contra el hielo.</em></p>
         </header>
         <nav class="site-nav" id="siteNav" aria-label="Main"></nav>
 
@@ -81,14 +81,17 @@
     <script src="js/site-nav.js"></script>
     <script>
         const PHOTOS = [
-            { src: 'images/logo-attorney-portrait.png', captionKey: 'photoAttorney', imgClass: 'portrait' },
-            { src: 'images/logo-legal-symbols.png', captionKey: 'photoLegal', imgClass: '' },
-            { src: 'images/logo-vegas-skyline.png', captionKey: 'photoVegas', imgClass: '' }
+            { srcKey: 'heroCourthouse', captionKey: 'photoCourthouse' },
+            { srcKey: 'attorneys', captionKey: 'photoAttorneys' },
+            { srcKey: 'gavel', captionKey: 'photoGavel' },
+            { srcKey: 'courtroom', captionKey: 'photoCourtroom' },
+            { srcKey: 'counsel', captionKey: 'photoCounsel' },
+            { srcKey: 'lawLibrary', captionKey: 'photoLibrary' }
         ];
 
         const translations = {
             en: {
-                pageTitle: 'About Us — Privacy-First Tax & Immigration Law',
+                pageTitle: 'About Us — Fuego Immigration & Tax',
                 nav: { home: 'Home', about: 'About Us', tax: 'Tax Services', immigration: 'Immigration', free: 'Free Resources', pricing: 'Pricing', retain: 'Retain Attorney', contact: 'Contact' },
                 pageHeading: 'About our practice',
                 lead: 'We help Nevada families and workers navigate immigration and tax issues with clear communication, transparent pricing, and a privacy-first approach to how we collect and use information.',
@@ -100,9 +103,12 @@
                 pathPaidTitle: 'Secure an attorney now',
                 pathPaidText: 'Need individualized legal help? Start a confidential retention request, review pricing ($200/hr standard rate), and pay an initial deposit via Stripe, Zelle, or Chime when configured.',
                 pathPaidBtn: 'Retain an attorney',
-                photoAttorney: 'Justin Landess — Las Vegas tax and immigration counsel.',
-                photoLegal: 'Federal tax and immigration matters require careful, discreet handling.',
-                photoVegas: 'Serving Las Vegas and communities across Nevada.',
+                photoCourthouse: 'Stock — courthouse (illustrative)',
+                photoAttorneys: 'Stock — attorneys in professional setting',
+                photoGavel: 'Stock — courtroom symbols',
+                photoCourtroom: 'Stock — legal practice environment',
+                photoCounsel: 'Stock — counsel and client meeting',
+                photoLibrary: 'Stock — law library research',
                 privacyTitle: 'How we think about privacy',
                 privacyP1: 'Many people who contact us are under financial stress, facing IRS correspondence, or worried about immigration consequences for themselves or their families. You should not have to surrender more personal data than the service requires.',
                 privacyP2: 'We design our website around data minimization: public pages do not require login; free tools avoid storing sensitive answers in the browser when possible; paid retention collects contact details only when you initiate that path.',
@@ -129,7 +135,7 @@
                     'Former prosecutor — experience with government process [confirm details with firm]'
                 ],
                 credentialsNote: 'Placeholder items above must be confirmed by the firm before publishing as statements of fact.',
-                footer: '© 2026 Justin Landess Immigration Law Group. All rights reserved.',
+                footer: '© 2026 Fuego Immigration & Tax. Justin Landess, Attorney.',
                 footerDisclaimer: 'Attorney advertising. Prior results do not guarantee future outcomes.'
             },
             es: {
@@ -145,9 +151,12 @@
                 pathPaidTitle: 'Contrate un abogado ahora',
                 pathPaidText: '¿Necesita ayuda legal personalizada? Inicie una solicitud confidencial, revise precios ($200/hr) y pague un depósito inicial cuando esté configurado.',
                 pathPaidBtn: 'Contratar abogado',
-                photoAttorney: 'Justin Landess — Las Vegas.',
-                photoLegal: 'Asuntos fiscales y de inmigración federal.',
-                photoVegas: 'Sirviendo a Las Vegas y Nevada.',
+                photoCourthouse: 'Archivo — tribunal',
+                photoAttorneys: 'Archivo — abogados',
+                photoGavel: 'Archivo — símbolos legales',
+                photoCourtroom: 'Archivo — entorno legal',
+                photoCounsel: 'Archivo — consulta legal',
+                photoLibrary: 'Archivo — biblioteca jurídica',
                 privacyTitle: 'Privacidad',
                 privacyP1: 'Muchas personas enfrentan estrés financiero, cartas del IRS o preocupación migratoria. No debe compartir más datos de los necesarios.',
                 privacyP2: 'Minimizamos datos: páginas públicas sin login; herramientas gratuitas evitan guardar respuestas sensibles cuando es posible.',
@@ -170,7 +179,7 @@
                 credentialsP1: 'Confirme credenciales directamente con la firma.',
                 credentialsList: ['UNLV Law — confirmar con firma', 'Barra de Nevada — confirmar', 'Experiencia como fiscal — confirmar'],
                 credentialsNote: 'Los elementos marcados deben confirmarse antes de publicarse como hechos.',
-                footer: '© 2026 Grupo Justin Landess. Todos los derechos reservados.',
+                footer: '© 2026 Fuego Immigration & Tax. Justin Landess, Abogado.',
                 footerDisclaimer: 'Publicidad de abogado. Resultados previos no garantizan resultados futuros.'
             }
         };
@@ -194,12 +203,14 @@
             document.getElementById('pathPaidText').textContent = t.pathPaidText;
             document.getElementById('pathPaidBtn').textContent = t.pathPaidBtn;
 
-            document.getElementById('photoGrid').innerHTML = PHOTOS.map(photo => `
+            document.getElementById('photoGrid').innerHTML = PHOTOS.map(photo => {
+                const src = LEGAL_STOCK[photo.srcKey];
+                return `
                 <figure class="photo-card">
-                    <img src="${photo.src}" class="${photo.imgClass}" alt="${t[photo.captionKey]}" loading="lazy">
+                    <img src="${src}" alt="${t[photo.captionKey]}" loading="lazy">
                     <figcaption>${t[photo.captionKey]}</figcaption>
-                </figure>
-            `).join('');
+                </figure>`;
+            }).join('');
 
             ['privacyTitle','privacyP1','privacyP2','privacyDisclosure','approachTitle','approachP1','approachP2',
              'accessTitle','accessP1','accessP2','credentialsTitle','credentialsP1','credentialsNote','hardshipBtn'].forEach(id => {

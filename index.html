@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Landess Immigration Law - Green Cards & Spousal Sponsorship</title>
+    <title>Fuego Immigration &amp; Tax — Las Vegas</title>
     <link rel="stylesheet" href="theme.css">
     <script src="js/site-nav.js"></script>
+    <script src="js/stock-photos.js"></script>
 </head>
 <body>
+    <section class="legal-hero" aria-label="Courthouse — stock photo"></section>
     <div id="lang-selector">
         <button data-lang="en" onclick="setLanguage('en')">English</button>
         <button data-lang="es" onclick="setLanguage('es')">Español</button>
@@ -16,10 +18,14 @@
     <div class="container">
         <header class="site-header">
             <a href="index.html" aria-label="Home">
-                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Tax and Immigration Lawyer — Las Vegas, NV">
+                <img class="logo-full" src="images/logo-full.png" width="819" height="545" alt="Fuego Immigration and Tax — Las Vegas, NV">
             </a>
+            <p class="site-tagline" id="siteTagline"></p>
         </header>
         <nav class="site-nav" id="siteNav"></nav>
+
+        <div class="legal-photo-strip" id="legalPhotoStrip" aria-label="Legal stock photography"></div>
+
         <h1 id="mainHeading"></h1>
         <h2 id="subheading"></h2>
         <p id="intro1"></p>
@@ -117,9 +123,10 @@
     <script>
         const translations = {
             en: {
-                pageTitle: 'Justin Landess Immigration Law - Green Cards & Spousal Sponsorship',
-                mainHeading: '🏛️ Justin Landess Immigration Law Group',
-                subheading: 'Specialized in Green Cards, Spousal Sponsorship & Deportation Defense',
+                pageTitle: 'Fuego Immigration & Tax — Las Vegas',
+                siteTagline: 'Fuego Immigration & Tax — <em>El fuego contra el hielo.</em>',
+                mainHeading: '🔥 Fuego Immigration & Tax',
+                subheading: 'Immigration & tax counsel — Las Vegas, Nevada',
                 intro1: 'Expert immigration attorney with 40+ years of legal experience serving Nevada families and individuals.',
                 intro2: 'Privacy-first guidance for immigration and tax matters in Las Vegas and Nevada. $200/hr attorney services; free resources to start.',
                 privacyBannerTitle: 'Privacy comes first',
@@ -133,13 +140,16 @@
                 consultationBtn: '📋 FREE CONSULTATION REQUEST',
                 contactBtn: '📞 CONTACT FORM',
                 nav: { home: 'Home', about: 'About Us', tax: 'Tax Services', immigration: 'Immigration', free: 'Free Resources', pricing: 'Pricing', retain: 'Retain Attorney', contact: 'Contact' },
+                stockGavel: 'Stock — gavel & scales',
+                stockCounsel: 'Stock — legal counsel',
+                stockLibrary: 'Stock — law library',
                 taxIrsHeading: 'Worried about the IRS?',
                 taxIrsText: 'Ask about our Instant Tax Shelter and tax forgiveness information. Confidential review of your options—no obligation.',
                 taxIrsBtn: '💼 ASK ABOUT TAX RELIEF',
                 exploreTitle: 'Learn more about our firm',
                 exploreAbout: 'About us & photos',
                 exploreWhat: 'What we do',
-                whyChoose: 'Why Choose Justin Landess Immigration Law?',
+                whyChoose: 'Why Choose Fuego Immigration & Tax?',
                 whyChooseItems: [
                     '✓ 40+ Years of Legal Experience in Nevada',
                     '✓ Graduate of UNLV Law School',
@@ -182,13 +192,14 @@
                 readyHeading: 'Ready to Secure Your Immigration Future?',
                 readyText: 'Don\'t navigate immigration alone. Get your free consultation today and take the first step toward your goals.',
                 getStartedBtn: 'GET STARTED NOW',
-                footer: '© 2026 Justin Landess Immigration Law Group. All rights reserved.',
+                footer: '© 2026 Fuego Immigration & Tax. Justin Landess, Attorney.',
                 footerDisclaimer: 'Attorney Advertising. Results not guaranteed. Previous results do not guarantee future outcomes.'
             },
             es: {
-                pageTitle: 'Justin Landess Ley de Inmigración - Tarjetas Verdes & Patrocinio Conyugal',
-                mainHeading: '🏛️ Grupo de Ley de Inmigración Justin Landess',
-                subheading: 'Especializado en Tarjetas Verdes, Patrocinio Conyugal y Defensa de Deportación',
+                pageTitle: 'Fuego Immigration & Tax — Las Vegas',
+                siteTagline: 'Fuego Immigration & Tax — <em>El fuego contra el hielo.</em>',
+                mainHeading: '🔥 Fuego Immigration & Tax',
+                subheading: 'Inmigración e impuestos — Las Vegas, Nevada',
                 intro1: 'Abogado de inmigración experto con más de 40 años de experiencia legal sirviendo a familias e individuos de Nevada.',
                 intro2: 'Privacidad primero — inmigración e impuestos en Nevada. $200/hr; recursos gratuitos para comenzar.',
                 privacyBannerTitle: 'La privacidad primero',
@@ -202,13 +213,16 @@
                 consultationBtn: '📋 SOLICITUD DE CONSULTA',
                 contactBtn: '📞 FORMULARIO',
                 nav: { home: 'Inicio', about: 'Quiénes Somos', tax: 'Impuestos', immigration: 'Inmigración', free: 'Gratis', pricing: 'Precios', retain: 'Contratar', contact: 'Contacto' },
+                stockGavel: 'Imagen de archivo — tribunal',
+                stockCounsel: 'Imagen de archivo — abogados',
+                stockLibrary: 'Imagen de archivo — biblioteca legal',
                 taxIrsHeading: '¿Preocupado por el IRS?',
                 taxIrsText: 'Pregunte sobre nuestro Refugio Fiscal Instantáneo e información sobre perdón de impuestos. Revisión confidencial de sus opciones—sin obligación.',
                 taxIrsBtn: '💼 PREGUNTE SOBRE ALIVIO FISCAL',
                 exploreTitle: 'Conozca más sobre nuestra firma',
                 exploreAbout: 'Quiénes somos y fotos',
                 exploreWhat: 'Qué hacemos',
-                whyChoose: '¿Por Qué Elegir la Ley de Inmigración Justin Landess?',
+                whyChoose: '¿Por Qué Elegir Fuego Immigration & Tax?',
                 whyChooseItems: [
                     '✓ Más de 40 Años de Experiencia Legal en Nevada',
                     '✓ Graduado de la Facultad de Derecho de UNLV',
@@ -251,7 +265,7 @@
                 readyHeading: '¿Listo para Asegurar Tu Futuro de Inmigración?',
                 readyText: 'No navegues la inmigración solo. Obtén tu consulta gratuita hoy y da el primer paso hacia tus objetivos.',
                 getStartedBtn: 'COMENZAR AHORA',
-                footer: '© 2026 Grupo de Ley de Inmigración Justin Landess. Todos los derechos reservados.',
+                footer: '© 2026 Fuego Immigration & Tax. Justin Landess, Abogado.',
                 footerDisclaimer: 'Publicidad de Abogado. Los resultados no están garantizados. Los resultados previos no garantizan resultados futuros.'
             }
         };
@@ -268,6 +282,22 @@
             document.querySelector(`#lang-selector button[data-lang="${language}"]`).classList.add('active');
         }
 
+        function renderLegalPhotoStrip(t) {
+            const items = [
+                { src: LEGAL_STOCK.gavel, cap: t.stockGavel },
+                { src: LEGAL_STOCK.counsel, cap: t.stockCounsel },
+                { src: LEGAL_STOCK.lawLibrary, cap: t.stockLibrary }
+            ];
+            const el = document.getElementById('legalPhotoStrip');
+            if (!el) return;
+            el.innerHTML = items.map(item => `
+                <figure>
+                    <img src="${item.src}" alt="${item.cap}" loading="lazy" width="800" height="500">
+                    <figcaption>${item.cap}</figcaption>
+                </figure>
+            `).join('');
+        }
+
         function translatePage(language) {
             const t = translations[language];
             
@@ -275,6 +305,8 @@
             document.title = t.pageTitle;
             renderSiteNav('home', t.nav);
             renderSiteFooter(`<p>${t.footer}</p><p>${t.footerDisclaimer}</p>`);
+            renderLegalPhotoStrip(t);
+            document.getElementById('siteTagline').innerHTML = t.siteTagline;
             document.getElementById('mainHeading').textContent = t.mainHeading;
             document.getElementById('subheading').textContent = t.subheading;
             document.getElementById('intro1').textContent = t.intro1;

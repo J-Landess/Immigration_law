@@ -1,17 +1,26 @@
-/* Mexican-inspired palette — green, white, red (no gold/purple) */
+/* Chamber & counsel — navy, slate, burgundy (legacy --mx-* for forms) */
 :root {
-    --mx-green: #006847;
-    --mx-green-dark: #003d2a;
-    --mx-green-mid: #0a5238;
-    --mx-green-light: #1a7a52;
-    --mx-red: #ce1126;
-    --mx-red-hover: #e0152f;
+    --legal-navy: #0f172a;
+    --legal-slate: #1e293b;
+    --legal-card: rgba(30, 41, 59, 0.94);
+    --legal-burgundy: #922b21;
+    --legal-burgundy-hover: #b83a2e;
+    --legal-brass: #c4a574;
+    --legal-brass-muted: #a89068;
+    --legal-parchment: #e2e8f0;
+    --hero-image: url('https://images.unsplash.com/photo-1479144377287-296905093aa0?w=1600&q=80&fit=crop');
+    --mx-green-dark: var(--legal-navy);
+    --mx-green-mid: var(--legal-slate);
+    --mx-green-light: #334155;
+    --mx-green: var(--legal-burgundy);
+    --mx-red: var(--legal-burgundy);
+    --mx-red-hover: var(--legal-burgundy-hover);
     --mx-white: #ffffff;
-    --text: #f5f5f5;
-    --text-muted: rgba(255, 255, 255, 0.82);
-    --card-bg: rgba(0, 61, 42, 0.92);
-    --border: rgba(255, 255, 255, 0.22);
-    --accent-line: linear-gradient(90deg, var(--mx-green) 33%, var(--mx-white) 33%, var(--mx-white) 66%, var(--mx-red) 66%);
+    --text: var(--legal-parchment);
+    --text-muted: rgba(226, 232, 240, 0.82);
+    --card-bg: var(--legal-card);
+    --border: rgba(196, 165, 116, 0.35);
+    --accent-line: linear-gradient(90deg, var(--legal-burgundy) 0%, var(--legal-brass) 50%, var(--legal-slate) 100%);
 }
 
 * {
@@ -22,7 +31,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(160deg, var(--mx-green-dark) 0%, #001a12 45%, var(--mx-green-mid) 100%);
+    background: linear-gradient(165deg, var(--legal-navy) 0%, #020617 50%, var(--legal-slate) 100%);
     background-attachment: fixed;
     color: var(--text);
     min-height: 100vh;
@@ -51,6 +60,24 @@ body {
     height: auto;
     max-height: 220px;
     border-radius: 8px;
+}
+
+.site-tagline {
+    margin-top: 14px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--legal-brass);
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+    max-width: 36em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.site-tagline em {
+    color: var(--legal-parchment);
+    font-style: normal;
+    font-weight: 500;
 }
 
 #lang-selector {
@@ -204,8 +231,8 @@ p, li {
 }
 
 .cta-band {
-    background: linear-gradient(135deg, var(--mx-green) 0%, var(--mx-white) 50%, var(--mx-red) 100%);
-    color: var(--mx-green-dark);
+    background: linear-gradient(135deg, var(--legal-brass) 0%, var(--legal-parchment) 40%, var(--legal-burgundy) 100%);
+    color: var(--legal-navy);
     padding: 30px;
     border-radius: 10px;
     text-align: center;
@@ -214,16 +241,16 @@ p, li {
 
 .cta-band h2,
 .cta-band p {
-    color: var(--mx-green-dark);
+    color: var(--legal-navy);
 }
 
 .cta-band .btn {
-    background: var(--mx-green-dark);
-    color: var(--mx-white);
+    background: var(--legal-navy);
+    color: var(--legal-parchment);
 }
 
 .cta-band .btn:hover {
-    background: var(--mx-green);
+    background: #000;
 }
 
 .photo-grid {
@@ -416,7 +443,47 @@ footer {
     gap: 16px;
 }
 
+.legal-hero {
+    width: 100%;
+    min-height: min(38vh, 300px);
+    background-image:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.92) 100%),
+        var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    border-bottom: 3px solid var(--legal-burgundy);
+}
+
+.legal-photo-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0 0 28px;
+}
+
+.legal-photo-strip figure {
+    margin: 0;
+}
+
+.legal-photo-strip img {
+    width: 100%;
+    height: 168px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: block;
+}
+
+.legal-photo-strip figcaption {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 6px;
+    opacity: 0.75;
+}
+
 @media (max-width: 768px) {
+    .legal-photo-strip { grid-template-columns: 1fr; }
+    .legal-hero { min-height: 200px; }
     .path-grid { grid-template-columns: 1fr; }
     h1 { font-size: 1.85rem; }
     .stats { grid-template-columns: 1fr; }

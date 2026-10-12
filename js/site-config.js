@@ -1,7 +1,8 @@
 /** Public frontend config — no secrets. Point apiBaseUrl at deployed /server instance. */
 window.SITE_CONFIG = {
   apiBaseUrl: 'http://localhost:10000',
-  firmName: 'Justin Landess Immigration Law Group'
+  firmName: 'Fuego Immigration & Tax',
+  tagline: 'El fuego contra el hielo.'
 };
 
 async function fetchPublicConfig() {
